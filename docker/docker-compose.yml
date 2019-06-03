@@ -1,0 +1,22 @@
+version: '3'
+
+volumes:
+  s3data:
+    driver: local
+
+services:
+  s3vol:
+    image: elementar/s3-volume
+    command: /data s3://private-factorio-assets
+    environment:
+      - BACKUP_INTERVAL=5m
+      - AWS_ACCESS_KEY_ID=AKIA6JU6EM64CXATDRGU
+      - AWS_SECRET_ACCESS_KEY=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
+      - AWS_DEFAULT_REGION=us-east-2
+    volumes:
+      - s3data:/data
+  factorio:
+    image: rhodesar/factorio-stable
+    volumes:
+      - s3data:/opt/factorio/s3
+
