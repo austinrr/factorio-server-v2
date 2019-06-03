@@ -8,7 +8,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            -"91:73:d2:a8:c9:78:50:3d:80:10:39:5c:67:73:a5:33"
+            -"11:9e:cf:5f:a9:d1:fc:43:a2:99:ff:f3:f0:9f:8c:37"
 
       - run:
           name: Print the Current Time
