@@ -8,9 +8,21 @@ jobs:
       - checkout
 
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
           name: Print the Current Time
           command: date
+  deploy:
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            -"91:73:d2:a8:c9:78:50:3d:80:10:39:5c:67:73:a5:33"
+
+      - run:
+          name: AWS EC2 Deploy
+          command: |
+            # upload installation script
+            scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh \
+              ec2-54-208-170-217.compute-1.amazonaws.com:/tmp
+            # run installation script in remote
+            ssh -o StrictHostKeyChecking=no \
+              ec2-54-208-170-217.compute-1.amazonaws.com "/tmp/install-factorio-server.sh"
+            
