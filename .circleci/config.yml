@@ -18,7 +18,7 @@ jobs:
           name: AWS EC2 Deploy
           command: |
             # upload installation script
-            scp -r -o StrictHostKeyChecking=no ./project/install-factorio-server.sh \
+            scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh \
               ec2-user@ec2-54-89-229-187.compute-1.amazonaws.com:/tmp
             # run installation script in remote
             ssh -o StrictHostKeyChecking=no \
