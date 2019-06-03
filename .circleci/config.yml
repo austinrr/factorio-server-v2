@@ -6,15 +6,13 @@ jobs:
 
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            -"91:73:d2:a8:c9:78:50:3d:80:10:39:5c:67:73:a5:33"
 
       - run:
           name: Print the Current Time
           command: date
-  deploy:
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            -"91:73:d2:a8:c9:78:50:3d:80:10:39:5c:67:73:a5:33"
 
       - run:
           name: AWS EC2 Deploy
