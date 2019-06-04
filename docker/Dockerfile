@@ -4,7 +4,7 @@ LABEL maintainer="austin.dev@outlook.com"
 LABEL description="A Factorio Server"
 LABEL version="0.1"
 
-ENV PORT=34197 \
+ENV PORT=34198 \
 	RCON_PORT=27015 \
 	VERSION=0.16.51 \
 	PUID=845 \
