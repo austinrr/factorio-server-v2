@@ -5,14 +5,12 @@ if ! [ -x "$(command -v docker)" ]; then
 	echo 'Warn: Docker is not installed, attempting to install'
 
 	sudo yum install -y docker docker-compose
-	wait &!
 fi
 
 # is docker service running ?
 if ! ( systemctl -q is-active docker ); then
 	echo 'Warn: Docker is not running, attempting to start'
 	sudo service docker start
-	wait &!
 fi
 
 # verify docker compose yml exists
@@ -23,7 +21,6 @@ fi
 
 # shutdown existing factorio server
 docker-compose -f /tmp/docker-compose.yml down
-wait &1
 
 # start server
-docker-compose -f /tmp/docker-compose.yml up
+docker-compose -f /tmp/docker-compose.yml up --detach
