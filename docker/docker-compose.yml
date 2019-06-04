@@ -10,8 +10,8 @@ services:
     command: /data s3://private-factorio-assets
     environment:
       - BACKUP_INTERVAL=5m
-      - AWS_ACCESS_KEY_ID=AKIA6JU6EM64CXATDRGU
-      - AWS_SECRET_ACCESS_KEY=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
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
       - AWS_DEFAULT_REGION=us-east-2
     volumes:
       - s3data:/data
