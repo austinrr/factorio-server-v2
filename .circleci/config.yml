@@ -20,18 +20,9 @@ jobs:
       - run:
           name: AWS EC2 Deploy
           command: |
-            # delete existing files
+            # delete existing files & create /tmp/server
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@${EC2_HOSTNAME} "rm -rf /tmp/server"
-            # create /tmp/server
-            ssh -o StrictHostKeyChecking=no \
-              ec2-user@${EC2_HOSTNAME} "mkdir /tmp/server"
-            # upload installation script
-            scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh ./docker/docker-compose.yml \
-              ec2-user@${EC2_HOSTNAME}:/tmp/server
-            # run installation script in remote
-            ssh -o StrictHostKeyChecking=no \
-              ec2-user@${EC2_HOSTNAME} "mkdir /tmp/server"
+              ec2-user@${EC2_HOSTNAME} "rm -rf /tmp/server && mkdir /tmp/server" \
             # upload installation script
             scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh ./docker/docker-compose.yml \
               ec2-user@${EC2_HOSTNAME}:/tmp/server
