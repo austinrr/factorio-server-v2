@@ -17,6 +17,9 @@ jobs:
       - run:
           name: AWS EC2 Deploy
           command: |
+            # delete existing files
+            ssh -o StrictHostKeyChecking=no \
+              ec2-user@ec2-54-89-229-187.compute-1.amazonaws.com "rm -rf /tmp/*"
             # upload installation script
             scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh ./docker/docker-compose.yml \
               ec2-user@ec2-54-89-229-187.compute-1.amazonaws.com:/tmp
