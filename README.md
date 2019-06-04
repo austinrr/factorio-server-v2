@@ -1,5 +1,9 @@
 # factorio-server-v2
 
+## todo
+* create build and push step in circleci for docker
+* start logging errors to logs folder
+
 ## required s3 bucket policy
 [source](https://docs.docker.com/registry/storage-drivers/s3/)
 ```
