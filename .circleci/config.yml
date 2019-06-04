@@ -22,19 +22,19 @@ jobs:
           command: |
             # delete existing files
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@${ec2_hostname} "rm -rf /tmp/server"
+              ec2-user@${EC2_HOSTNAME} "rm -rf /tmp/server"
             # create /tmp/server
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@{ec2_hostname} "mkdir /tmp/server"
+              ec2-user@${EC2_HOSTNAME} "mkdir /tmp/server"
             # upload installation script
             scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh ./docker/docker-compose.yml \
-              ec2-user@{ec2_hostname}:/tmp/server
+              ec2-user@${EC2_HOSTNAME}:/tmp/server
             # run installation script in remote
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@${ec2_hostname} "mkdir /tmp/server"
+              ec2-user@${EC2_HOSTNAME} "mkdir /tmp/server"
             # upload installation script
             scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh ./docker/docker-compose.yml \
-              ec2-user@${ec2_hostname}:/tmp/server
+              ec2-user@${EC2_HOSTNAME}:/tmp/server
             # run installation script in remote
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@${ec2_hostname} "sh /tmp/server/install-factorio-server.sh"
+              ec2-user@${EC2_HOSTNAME} "sh /tmp/server/install-factorio-server.sh"
