@@ -19,11 +19,11 @@ jobs:
           command: |
             # delete existing files
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@ec2-3-89-238-22.compute-1.amazonaws.com "rm -rf /tmp/*"
+              ec2-user@ec2-3-89-238-22.compute-1.amazonaws.com "rm -rf /tmp/server*"
             # upload installation script
             scp -r -o StrictHostKeyChecking=no ./install-factorio-server.sh ./docker/docker-compose.yml \
-              ec2-user@ec2-3-89-238-22.compute-1.amazonaws.com:/tmp
+              ec2-user@ec2-3-89-238-22.compute-1.amazonaws.com:/tmp/server
             # run installation script in remote
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@ec2-3-89-238-22.compute-1.amazonaws.com "sh /tmp/install-factorio-server.sh"
+              ec2-user@ec2-3-89-238-22.compute-1.amazonaws.com "sh /tmp/server/install-factorio-server.sh"
             
