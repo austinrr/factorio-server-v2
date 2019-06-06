@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# -------------------------------------------------------------------
+# Problems:
+# docker-compose will not be installed, see https://www.hostinger.com/tutorials/how-to-install-docker-compose-centos-7/
+# docker service will be running but not useable by ec2-user, the following must be run
+# "sudo usermod -a -G docker ec2-user" and the machine rebooted
+# -------------------------------------------------------------------
+
 # set env vars
 echo 'Setting ENV vars ...'
 curl -s http://169.254.169.254/latest/user-data > /tmp/user-data.txt
