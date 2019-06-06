@@ -11,7 +11,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            -"11:9e:cf:5f:a9:d1:fc:43:a2:99:ff:f3:f0:9f:8c:37"
+            -"aa:91:85:0c:fe:27:a3:0c:75:46:91:55:21:26:78:27"
 
       - run:
           name: Print the Current Time
