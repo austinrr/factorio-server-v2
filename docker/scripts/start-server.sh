@@ -17,6 +17,11 @@ CONFIG="$S3"/config
 function setup {
 	SU_EXEC=""
 
+	if [ "$(ls -A $SAVES)" ]; then
+	# Wait for saves to load from s3
+	wait 1m
+	fi
+
 	if [ ! -f "$CONFIG/server-settings.json" ]; then
 	# Copy default settings if server-settings.json doesn't exist
 	cp /opt/factorio/data/server-settings.example.json "$CONFIG/server-settings.json"
