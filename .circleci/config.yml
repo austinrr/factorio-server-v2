@@ -28,4 +28,4 @@ jobs:
               ec2-user@${EC2_HOSTNAME}:/tmp/server
             # run installation script in remote
             ssh -o StrictHostKeyChecking=no \
-              ec2-user@${EC2_HOSTNAME} "sh /tmp/server/install-factorio-server.sh"
+              ec2-user@${EC2_HOSTNAME} "source /tmp/server/install-factorio-server.sh"

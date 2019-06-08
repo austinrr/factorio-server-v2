@@ -17,6 +17,8 @@ services:
       - s3data:/data
   factorio:
     image: rhodesar/factorio-stable
+    depends_on:
+      - s3vol
     ports:
       - "34198:34198/udp"
       - "27015:27015/tcp"
