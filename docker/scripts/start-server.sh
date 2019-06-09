@@ -17,7 +17,7 @@ CONFIG="$S3"/config
 SU_EXEC="su-exec factorio"
 NRSAVES=$( find -L "$SAVES" -mindepth 1 -iname \*.zip | wc -l )
 
-
+# Copy default settings for those not found and generate map if a save is not found
 function copyDefaults {
 	if [ ! -f "$CONFIG/server-settings.json" ]; then
 		# Copy default settings if server-settings.json doesn't exist
@@ -42,37 +42,29 @@ function copyDefaults {
 		chown -R factorio:factorio "$S3"
 	fi
 
-	if [ "$NRSAVES" -eq 0 ]; then
+	# if [ "$NRSAVES" -eq 0 ]; then -- no idea why this does not work but the following does
+	if [ "$( find -L "$SAVES" -mindepth 1 -iname \*.zip | wc -l )" -eq 0 ]; then
 		echo "No save files found, generating new map"
+
 		$SU_EXEC "$SERVER" \
 			--create "$SAVES/_autosave1.zip" \
 			--map-gen-settings "$CONFIG/map-gen-settings.json" \
 			--map-settings "$CONFIG/map-settings.json"
 	fi
+
+	NRTMPSAVES=$( find -L "$SAVES" -iname \*.tmp.zip -mindepth 1 | wc -l )
+	if [ "$NRTMPSAVES" -gt 0 ]; then
+		# Delete incomplete saves (such as after a forced exit)
+		rm -f "$SAVES"/*.tmp.zip
+	fi
 }
 
-function spinner() {
-    local PROC="$1"
-    local str="${2:-'Waiting for files to download from S3, this may take up to 2 minutes.'}"
-    local delay="0.1"
-    while [ -d /proc/$PROC ]; do
-        printf '\033[s\033[u[ / ] %s\033[u' "$str"; sleep "$delay"
-        printf '\033[s\033[u[ — ] %s\033[u' "$str"; sleep "$delay"
-        printf '\033[s\033[u[ \ ] %s\033[u' "$str"; sleep "$delay"
-        printf '\033[s\033[u[ | ] %s\033[u' "$str"; sleep "$delay"
-    done
-    printf '\033[s\033[u%*s\033[u\033[0m' $((${#str}+6)) " " # return to normal
-    return 0
-}
-
+# Wait for files to download from S3
 function waitOnS3 {
-	# it can take awhile to download the files from s3
-
 	for retries in `seq 1 12`; do
-
-		if [ "$NRSAVES" -eq 0 ]; then
-			sleep 10s &
-			spinner $!
+		if [ "$( find -L "$SAVES" -mindepth 1 -iname \*.zip | wc -l )" -eq 0 ]; then
+			echo "Waiting 10s..."
+			sleep 10s
 		else
 			echo "Save files found!"
 			break;

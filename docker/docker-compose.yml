@@ -16,7 +16,7 @@ services:
     volumes:
       - s3data:/data
   factorio:
-    image: rhodesar/factorio-stable
+    image: rhodesar/factorio-stable:latest
     depends_on:
       - s3vol
     ports:
