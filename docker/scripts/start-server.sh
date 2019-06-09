@@ -68,7 +68,7 @@ function spinner() {
 function waitOnS3 {
 	# it can take awhile to download the files from s3
 
-	for retries in `seq 1 1`; do
+	for retries in `seq 1 12`; do
 
 		if [ "$NRSAVES" -eq 0 ]; then
 			sleep 10s &
