@@ -10,9 +10,12 @@
 # set env vars
 echo 'Setting ENV vars ...'
 curl -s http://169.254.169.254/latest/user-data > /tmp/user-data.txt
-export AWS_USER_NAME="$(cut -s -f 1 -d ',' /tmp/user-data.txt)"
-export AWS_ACCESS_KEY="$(cut -s -f 2 -d ',' /tmp/user-data.txt)"
-export AWS_SECRET_KEY="$(cut -s -f 3 -d ',' /tmp/user-data.txt)"
+
+# write secrets to .env
+echo "$(cut -s -f 1 -d ',' /tmp/user-data.txt)" >> /tmp/server/.env
+echo "$(cut -s -f 2 -d ',' /tmp/user-data.txt)" >> /tmp/server/.env
+echo "$(cut -s -f 3 -d ',' /tmp/user-data.txt)" >> /tmp/server/.env
+
 
 # is docker installed ?
 if ! [ -x "$(command -v docker)" ]; then
