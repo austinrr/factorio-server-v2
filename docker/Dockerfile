@@ -6,7 +6,7 @@ LABEL version="0.1"
 
 ENV PORT=34198 \
 	RCON_PORT=27015 \
-	VERSION=0.16.51 \
+	VERSION=0.17.50 \
 	PUID=845 \
 	PGID=845 \
 	USER=factorio \
